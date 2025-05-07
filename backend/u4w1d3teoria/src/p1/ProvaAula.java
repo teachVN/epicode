@@ -20,6 +20,14 @@ public class ProvaAula {
 
         a1.setStudenti(studenti);
 
-        a1.stampa();
+        stampaAula(a1);
+    }
+
+    public static void stampaAula(Aula aula){
+        System.out.println("Nome: " + aula.getNome());
+
+        for (int i = 0; i < aula.getStudenti().length; i++) {
+            aula.getStudenti()[i].stampa();
+        }
     }
 }
