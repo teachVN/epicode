@@ -1,10 +1,17 @@
 package ereditarieta;
 
-public class Persona {
+public class Persona { //final nella dichiarazione della classe significa che
+                            //la classe non può essere ereditata
 
     private String nome;
     private String cognome;
     private int eta;
+
+    public Persona(String nome, String cognome, int eta) {
+        this.nome = nome;
+        this.cognome = cognome;
+        this.eta = eta;
+    }
 
     public String getNome() {
         return nome;
