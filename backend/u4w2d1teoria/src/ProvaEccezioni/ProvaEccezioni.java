@@ -25,13 +25,14 @@ public class ProvaEccezioni {
             int risultato = n1 / n2;
 
             System.out.println(risultato);
-        }catch (ArithmeticException e){
+        }catch (ArithmeticException e){//gestisce l'eccezione di divisione per 0
             System.out.println("Divisione per 0 non ammessa");
         }
-        catch (InputMismatchException e){
+        catch (InputMismatchException e){//gestisce input dell'utente diverso da un intero
             System.out.println("Devi inserire solo numeri interi");
         }
 
+        //il programma continua dopo i catch
         System.out.println("Programma terminato");
 
     }
