@@ -1,8 +1,15 @@
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.util.InputMismatchException;
 import java.util.Random;
 import java.util.Scanner;
 
 public class Esercizio1 {
+/*
+il logger deve essere di slf4j e deve avere un nome. Solitamente il nome è corrispondente al nome della classe
+ */
+    private static Logger logger = LoggerFactory.getLogger("Esercizio1");
 
     public static void main(String[] args) {
         int[] numeri = new int[5];
@@ -36,9 +43,11 @@ public class Esercizio1 {
 
                 numeri[indice] = valore;
             }catch (ArrayIndexOutOfBoundsException e){
-                System.out.println("indice inserito oltre il limite dell'array");
+                logger.error("indice inserito oltre il limite dell'array");
+                //System.out.println("indice inserito oltre il limite dell'array");
             }catch (InputMismatchException e){
-                System.out.println("input errato");
+                logger.error("input errato");
+                //System.out.println("input errato");
                 scanner.nextLine();
             }
 
