@@ -92,5 +92,25 @@ public class ProvaStream {
         verificano la condizione, altrimenti ritorna false
          */
         System.out.println(sorgente.map(s -> s.length()).allMatch(integer -> integer<10));
+
+        ArrayList<Integer> numeri2 = new ArrayList<>();
+        numeri2.add(13);
+        numeri2.add(32);
+        numeri2.add(26);
+
+        ArrayList<ArrayList<Integer>> lista = new ArrayList<>();
+        lista.add(numeri);
+        lista.add(numeri2);
+
+        /*
+        flatMap è un metodo intermedio per poter appiattire stream che hanno strutture con dati al
+        loro interno. basta applicare .stream alle strutture presenti nello stream attraverso il flatMap.
+         */
+        List<Integer> listaFinale = lista.stream().flatMap(l->l.stream()).toList();
+
+        System.out.println(listaFinale);
+
+
+
     }
 }
