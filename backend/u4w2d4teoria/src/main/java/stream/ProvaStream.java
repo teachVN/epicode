@@ -1,5 +1,9 @@
 package stream;
 
+import org.apache.commons.io.FileUtils;
+
+import java.io.File;
+import java.io.IOException;
 import java.util.DoubleSummaryStatistics;
 import java.util.List;
 import java.util.Map;
@@ -153,6 +157,33 @@ public class ProvaStream {
          */
         System.out.println(prodotti.stream().mapToDouble(Product::getPrice).sum());
 
+        File file = new File("./../prova.txt");
+
+        try {
+            /*
+            il metodo writeStringToFile permette di scrivere stringhe dentro il file. Ci sono diverse versioni:
+            noi useremo la versione con 4 parametri di ingresso: il nome della variabile File, la stringa da scrivere
+            nel file, il set di caratteri da usare, e se vogliamo andare in append o sovrascrivere ciò che è scritto
+            nel file. Il metodo lancia una Checked exception che dobbiamo gestire
+             */
+            FileUtils.writeStringToFile(file, prodottiStringati, "UTF-8", true);
+        }
+        catch (IOException e){
+            System.out.println(e.getMessage());
+        }
+
+        try {
+            /*
+            il metodo readFileToString permette di leggere una stringa da un file. Prende 2 parametri di ingresso che sono
+            il nome della variabile File e il set di caratteri. Restituisce la stringa letta. Da gestire l'eccezione
+            IOException
+             */
+            String stringaDaFile = FileUtils.readFileToString(file, "UTF-8");
+            System.out.println(stringaDaFile);
+        }
+        catch (IOException e){
+            System.out.println(e.getMessage());
+        }
 
     }
 
