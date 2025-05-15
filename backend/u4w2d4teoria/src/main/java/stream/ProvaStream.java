@@ -1,5 +1,6 @@
 package stream;
 
+import java.util.DoubleSummaryStatistics;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -77,6 +78,82 @@ public class ProvaStream {
         Map<String, Long> l6 =prodotti.stream().collect(Collectors.groupingBy(Product::getCategory,Collectors.counting()));
 
         System.out.println(l6);
+
+        System.out.println("---------------");
+
+        //creare una mappa di categorie e somme dei prezzi dei prodotti per categoria
+        Map<String, Double> l7= prodotti.stream().
+                collect(Collectors.groupingBy(Product::getCategory, Collectors.summingDouble(Product::getPrice)));
+
+        System.out.println(l7);
+
+        System.out.println("---------------");
+
+        //creare una mappa di categorie e medie  dei prezzi per categoria
+        Map<String, Double> l8= prodotti.stream().
+                collect(Collectors.groupingBy(Product::getCategory, Collectors.averagingDouble(Product::getPrice)));
+
+        System.out.println(l8);
+
+        System.out.println("---------------");
+
+        //calcolare la somma dei prezzi dei prodotti
+        System.out.println(prodotti.stream().collect(Collectors.summingDouble(Product::getPrice)));
+
+        System.out.println("---------------");
+
+        //calcolare la media dei prezzi dei prodotti
+        System.out.println(prodotti.stream().collect(Collectors.averagingDouble(Product::getPrice)));
+
+        System.out.println("---------------");
+
+        //ottenere delle statistiche sui prezzi
+        DoubleSummaryStatistics stat = prodotti.stream().collect(Collectors.summarizingDouble(Product::getPrice));
+
+        System.out.println(stat);
+
+        System.out.println("---------------");
+
+        //creare una mappa per sapere quali prodotti hanno un prezzo inferiore a 50 e quali superiore
+        /*
+        partitioningby crea una mappa in cui le chiavi sono booleani quindi solo 2 coppie e i valori sono
+        la lista di prodotti che verificano la condizione inserita nel partitioningby
+         */
+        Map<Boolean, List<Product>> l9= prodotti.stream().collect(Collectors.partitioningBy(product -> product.getPrice()<50));
+
+        System.out.println(l9);
+
+        System.out.println("---------------");
+
+        //calcolare la somma dei prezzi dei prodotti
+        System.out.println(prodotti.stream().map(Product::getPrice).
+                collect(Collectors.reducing(0.0, (somma, p)->somma+p)));
+
+        System.out.println("---------------");
+
+        //mettere sotto forma di stringa tutti i prodotti presenti nella lista
+        /*
+        joining permette di concatenare tutte le stringhe che ci sono in uno stream. Posso scegliere se
+        frapporre tra una stringa e un'altra un carattere che devo passare come parametro di ingresso la joining.
+        In questo caso le stringhe erano state create con un map che mappa  ogni prodotto con una stringa
+        che contiene tutte le caratteristiche del prodotto sotto forma di stringa
+         */
+
+        String prodottiStringati=prodotti.stream().map(product -> product.getId()+"@" + product.getName() + "@" + product.getCategory() + "@" +
+                product.getPrice()).collect(Collectors.joining(","));
+
+        System.out.println(prodottiStringati);
+
+        System.out.println("---------------");
+
+        //calcolare la somma dei prezzi dei prodotti
+        /*
+        mapToDouble permette un map con conversione di tipo automatica e soprattutto permette di usare dei
+        metodi esclusivi che sono sum, avg, max, min che non potrei avere se usassi map
+         */
+        System.out.println(prodotti.stream().mapToDouble(Product::getPrice).sum());
+
+
     }
 
 }
