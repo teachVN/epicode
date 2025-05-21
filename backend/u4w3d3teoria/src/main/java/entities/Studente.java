@@ -16,9 +16,23 @@ public class Studente {
     studente al db per farlo memorizzare in tabella
     */
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    /*
+/*
     questa strategia permette sempre l'autogenerazione della chiave primaria ma stavolta sarà tutto a cura del db.
     Cioè sarà il db che chiamerà la sequenza per l'incremento della chiave e l'inserimento nell'oggetto studente
+     */
+    /*@GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "sequence")
+    @SequenceGenerator(name = "sequence", initialValue = 1, allocationSize = 10)
+
+    la strategia usata è sequence e c'è bisogno di una annotazione aggiuntiva per indicare le caratteristiche
+    della sequenza come valore iniziale e incremento. Il valore dell'attributo generator in GeneratedValue
+    deve essere uguale al valore name della SequenceGenerator
+     */
+    /*@GeneratedValue(strategy = GenerationType.TABLE, generator = "tableGen")
+    @TableGenerator(name = "tableGen", initialValue = 1, allocationSize = 10)
+
+    la chiave è generata a partire da una tabella che si chiamerà tableGen e nella quale ci sarà il valroe
+    prossimo della chiave in base alle caratteristiche che abbiamo definito in TableGenerator.
+    Nel GeneratedValue dobbiamo indicare il nome del generator che deve coincidere con il name di TableGenerator
      */
     private int matricola;
     //@Column può essere usato per cambiare il nome del campo nella tabella, per settare il notnull,
@@ -32,6 +46,8 @@ public class Studente {
     @Enumerated(EnumType.STRING)
     @Column(name = "tipo_studente")
     private TipoStudente tipoStudente;
+    @Embedded
+    private LibrettoUniversitario librettoUniversitario;
 
     public Studente(String nome, String cognome, LocalDate dataNascita, TipoStudente tipoStudente) {
         //this.matricola = matricola;
@@ -85,14 +101,23 @@ public class Studente {
         this.tipoStudente = tipoStudente;
     }
 
+    public LibrettoUniversitario getLibrettoUniversitario() {
+        return librettoUniversitario;
+    }
+
+    public void setLibrettoUniversitario(LibrettoUniversitario librettoUniversitario) {
+        this.librettoUniversitario = librettoUniversitario;
+    }
+
     @Override
     public String toString() {
-        return "entities.Studente{" +
+        return "Studente{" +
                 "matricola=" + matricola +
                 ", nome='" + nome + '\'' +
                 ", cognome='" + cognome + '\'' +
                 ", dataNascita=" + dataNascita +
                 ", tipoStudente=" + tipoStudente +
+                ", librettoUniversitario=" + librettoUniversitario +
                 '}';
     }
 }
