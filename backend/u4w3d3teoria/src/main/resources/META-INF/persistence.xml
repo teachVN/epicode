@@ -6,7 +6,7 @@
         <class><!-- Entity Manager Class Name --></class>
         <properties>
             <property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver" />
-            <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/u4w3d2teoria" />
+            <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/u4w3d3teoria" />
             <property name="javax.persistence.jdbc.user" value="postgres" />
             <property name="javax.persistence.jdbc.password" value="corsojava" />
             <property name="hibernate.default_schema" value="public" />

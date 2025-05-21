@@ -1,7 +1,6 @@
 package entities;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Embeddable;
+import jakarta.persistence.*;
 
 import java.util.Map;
 
@@ -55,4 +54,6 @@ public class LibrettoUniversitario {
                 ", voto=" + voto +
                 '}';
     }
+
+
 }

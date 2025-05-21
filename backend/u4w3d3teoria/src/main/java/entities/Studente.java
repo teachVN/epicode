@@ -4,6 +4,8 @@ import enumeration.TipoStudente;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
+import java.util.List;
+
 @Entity //serve al jpa per capire che la classe deve avere una corrispondenza nel database
 @Table(name = "studenti") //per dare un nome diverso alla tabella nel database rispetto al nome della classe
 public class Studente {
@@ -48,6 +50,23 @@ public class Studente {
     private TipoStudente tipoStudente;
     @Embedded
     private LibrettoUniversitario librettoUniversitario;
+
+    @OneToOne/*JoinColumn serve per indicare che nella tabella che mappa questa classe ci sarà un fk il cui
+    nome sarà diploma_id
+    */
+    @JoinColumn(name = "diploma_id")
+    private Diploma diploma;
+
+    /*
+        questo è il lato many quindi devo avere il riferimento ad un oggetto dell'altra classe, devo annotarlo
+        con manytoone e con JoinColumn perchè questo lato avrà la fk nel db
+     */
+    @ManyToOne
+    @JoinColumn(name = "scuola_id")
+    private Scuola scuola;
+
+    @ManyToMany
+    private List<Professore> professori;
 
     public Studente(String nome, String cognome, LocalDate dataNascita, TipoStudente tipoStudente) {
         //this.matricola = matricola;
@@ -109,6 +128,30 @@ public class Studente {
         this.librettoUniversitario = librettoUniversitario;
     }
 
+    public Diploma getDiploma() {
+        return diploma;
+    }
+
+    public void setDiploma(Diploma diploma) {
+        this.diploma = diploma;
+    }
+
+    public Scuola getScuola() {
+        return scuola;
+    }
+
+    public void setScuola(Scuola scuola) {
+        this.scuola = scuola;
+    }
+
+    public List<Professore> getProfessori() {
+        return professori;
+    }
+
+    public void setProfessori(List<Professore> professori) {
+        this.professori = professori;
+    }
+
     @Override
     public String toString() {
         return "Studente{" +
@@ -118,6 +161,9 @@ public class Studente {
                 ", dataNascita=" + dataNascita +
                 ", tipoStudente=" + tipoStudente +
                 ", librettoUniversitario=" + librettoUniversitario +
+                ", diploma=" + diploma +
+                ", scuola=" + scuola +
+                ", professori=" + professori +
                 '}';
     }
 }
