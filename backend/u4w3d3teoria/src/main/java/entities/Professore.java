@@ -14,7 +14,14 @@ public class Professore {
     private String nome;
     private String materia;
 
-    @ManyToMany
+    @ManyToMany/*
+    nel many to many una delle 2 entità mostrerà la tabella di giuzione tra le 2 entità. JoinTable permette
+    di creare questa tabella a cui daremo un nome e in cui definiremo 2 fk, una verso i professori e una verso
+    gli studenti
+    */
+    @JoinTable(name = "professori_studenti",
+    joinColumns = @JoinColumn(name = "professore_id"),
+    inverseJoinColumns = @JoinColumn(name = "studente_id"))
     private List<Studente> studenti;
 
     public Professore(String nome, String materia) {

@@ -65,7 +65,7 @@ public class Studente {
     @JoinColumn(name = "scuola_id")
     private Scuola scuola;
 
-    @ManyToMany
+    @ManyToMany(mappedBy = "studenti")
     private List<Professore> professori;
 
     public Studente(String nome, String cognome, LocalDate dataNascita, TipoStudente tipoStudente) {

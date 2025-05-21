@@ -1,13 +1,12 @@
 import dao.DiplomaDao;
+import dao.ProfessoreDao;
 import dao.ScuolaDao;
 import dao.StudenteDao;
-import entities.Diploma;
-import entities.LibrettoUniversitario;
-import entities.Scuola;
-import entities.Studente;
+import entities.*;
 import enumeration.TipoStudente;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Map;
 
 public class ProvaStudente {
@@ -16,6 +15,7 @@ public class ProvaStudente {
         StudenteDao dao = new StudenteDao();
         DiplomaDao diplomaDao = new DiplomaDao();
         ScuolaDao scuolaDao = new ScuolaDao();
+        ProfessoreDao professoreDao = new ProfessoreDao();
 
         Studente s1 = new Studente("Mario", "Rossi",
                 LocalDate.of(2000,6,6), TipoStudente.RESIDENTE);
@@ -39,5 +39,11 @@ public class ProvaStudente {
         //aggancio la scuola allo studente che quindi avrà una fk verso la scuola appena creata e poi salvo sul db
         s1.setScuola(scuola);
         dao.salva(s1);
+
+        Professore professore = new Professore("Einstein","Fisica");
+
+        professore.setStudenti(List.of(s1));
+
+        professoreDao.salva(professore);
     }
 }
