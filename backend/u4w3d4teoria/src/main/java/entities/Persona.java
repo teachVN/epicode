@@ -5,7 +5,21 @@ import jakarta.persistence.*;
 import java.time.LocalDate;
 
 @Entity
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+/*
+SINGLE TABLE significa che tutte le entità padre e figli verranno convogliate in una unica tabella
+con tutti i campi di tutte le entità. Inoltre verrà creato un campo discriminante dtype che conterrà
+il tipo del record
+ */
+//@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+
+/*
+con questa strategia, vengono create una tabella per ogni entità. Ma la tabella padre conterrà solo
+la parte comune, mentre le tabelle figlie conterranno solo la parte specifica. Quindi per poter
+recuperare i dati completi dei figli, dovremo fare per forza una join tra tabella padre e figlia
+ */
+//@Inheritance(strategy = InheritanceType.JOINED)
+
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public abstract class Persona {
     @Id
     @GeneratedValue
