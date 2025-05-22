@@ -1,9 +1,6 @@
 package entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 @Entity
 @Table(name = "diplomi")
@@ -15,6 +12,9 @@ public class Diploma {
     private String scuola;
 
     private String descrizione;
+    //one to one bidirezionale
+//    @OneToOne(mappedBy = "diploma")
+//    private Studente studente;
 
     public Diploma(int voto, String scuola, String descrizione) {
         //this.id = id;

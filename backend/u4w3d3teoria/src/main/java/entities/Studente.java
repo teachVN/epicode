@@ -60,12 +60,16 @@ public class Studente {
     /*
         questo è il lato many quindi devo avere il riferimento ad un oggetto dell'altra classe, devo annotarlo
         con manytoone e con JoinColumn perchè questo lato avrà la fk nel db
+        Essendo il lato proprietario, posso fare solo i set della scuola sullo studente ma non inversamente
+        perchè verranno ignorati
      */
     @ManyToOne
     @JoinColumn(name = "scuola_id")
     private Scuola scuola;
-
-    @ManyToMany(mappedBy = "studenti")
+//la lista nel lato inverso viene gestita automaticamente dal jpa che la popolerà automaticamente
+    //Eager significa che questa lista che è gestita dal jpa deve essere popolata immediatamente,
+    //di default invece la fetch è lazy che significa popolala solo quando viene richiesta
+    @ManyToMany(mappedBy = "studenti",fetch = FetchType.EAGER)
     private List<Professore> professori;
 
     public Studente(String nome, String cognome, LocalDate dataNascita, TipoStudente tipoStudente) {
