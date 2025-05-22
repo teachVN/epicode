@@ -18,7 +18,6 @@ la parte comune, mentre le tabelle figlie conterranno solo la parte specifica. Q
 recuperare i dati completi dei figli, dovremo fare per forza una join tra tabella padre e figlia
  */
 //@Inheritance(strategy = InheritanceType.JOINED)
-
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public abstract class Persona {
     @Id

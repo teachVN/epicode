@@ -1,10 +1,14 @@
 package entities;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.NamedQuery;
 
 import java.time.LocalDate;
 
 @Entity
+@NamedQuery(name = "getStudentsByScuola", query = "select s from Studente s where s.scuola=:scuola")
+@NamedQuery(name = "getStudentsByScuolaIn", query = "select s from Studente s where s.scuola in(:s1,:s2,:s3)")
+
 public class Studente extends Persona{
     private int matricola;
     private String scuola;

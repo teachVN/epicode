@@ -1,6 +1,7 @@
 package dao;
 
 import entities.Persona;
+import entities.Studente;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
 
@@ -51,5 +52,27 @@ public class PersonaDao {
         query.setParameter("nome", name);
         //query.getResultList per eseguire ed estrarre dal risultato la lista delle persone
         return query.getResultList();
+    }
+    //richiamo di una namedQuery attraverso il solo nome della NamedQuery che si trova in Studente
+    public List<Studente> getStudenteByScuola(String scuola){
+        TypedQuery<Studente> query = em.createNamedQuery("getStudentsByScuola", Studente.class);
+        query.setParameter("scuola", scuola);
+        return query.getResultList();
+
+    }
+//richiamo di una namedQuery attraverso il solo nome della NamedQuery che si trova in Studente
+    public List<Studente> getStudenteByScuolaIn(String s1, String s2, String s3){
+        TypedQuery<Studente> query = em.createNamedQuery("getStudentsByScuolaIn", Studente.class);
+        query.setParameter("s1", s1);
+        query.setParameter("s2", s2);
+        query.setParameter("s3", s3);
+        return query.getResultList();
+
+    }
+    //esempio di query con count per contare gli studenti. In questo caso si usa il metodo getSingleResult perchè
+    //le funzioni di aggregazione ritornano solo un risultato
+    public Long countStudents(){
+        TypedQuery<Long> query= em.createQuery("select count(s) from Studente s", Long.class);
+        return query.getSingleResult();
     }
 }
