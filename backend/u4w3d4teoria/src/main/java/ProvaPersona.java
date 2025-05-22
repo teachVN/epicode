@@ -14,13 +14,15 @@ public class ProvaPersona {
 
         PersonaDao personaDao = new PersonaDao(em);
 
-        Studente s1 = new Studente("Mario", "Rossi", LocalDate.of(2000,7,7),
+        Studente s1 = new Studente("Francesco", "Rossi", LocalDate.of(2000,7,7),
                 23424, "Liceo Scientifico De Santis");
 
         Professore p1 = new Professore("Bianca", "Bianchi", LocalDate.of(1990, 4,4),
                 "Informatica");
 
-        personaDao.save(s1);
-        personaDao.save(p1);
+        //personaDao.save(s1);
+        //personaDao.save(p1);
+
+        System.out.println(personaDao.getPersoneByName("Francesco"));
     }
 }

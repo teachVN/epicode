@@ -2,6 +2,9 @@ package dao;
 
 import entities.Persona;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.TypedQuery;
+
+import java.util.List;
 
 public class PersonaDao {
 
@@ -32,5 +35,21 @@ public class PersonaDao {
         else{
             System.out.println("la persona " + p + " non esiste");
         }
+    }
+    //estrarre tutte le persone che hanno un nome passato come parametro di ingresso
+    public List<Persona> getPersoneByName(String name){
+        /*
+        per estrarre le persone che hanno un determinato nome, eseguo una dynamic query scritta in jpql
+        Utilizzo il metodo createQuery dell'Em a cui passo un query scritta in jpql che ha un parametro
+        al suo interno. I parametri si scrivono :nomeparametro. Questo rende la query dinamica perchè
+        posso sostituirci qualsiasi valore. Il secondo parametro del metodo createQuery prende il tipo
+        dell'oggetto che restituirà la query. createQuery restituisce una TypedQuery cioè un oggetto
+        tipizzato. Sulla variabile query applico il metodo setParameter per sostituire il parametro con
+        la variabile di ingresso del metodo
+         */
+        TypedQuery<Persona> query= em.createQuery("select p from Persona p where p.nome=:nome", Persona.class);
+        query.setParameter("nome", name);
+        //query.getResultList per eseguire ed estrarre dal risultato la lista delle persone
+        return query.getResultList();
     }
 }
