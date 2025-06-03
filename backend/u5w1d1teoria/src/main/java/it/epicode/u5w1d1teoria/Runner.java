@@ -1,6 +1,7 @@
 package it.epicode.u5w1d1teoria;
 
 import it.epicode.u5w1d1teoria.bean.Drink;
+import it.epicode.u5w1d1teoria.bean.Pizza;
 import it.epicode.u5w1d1teoria.bean.Topping;
 import it.epicode.u5w1d1teoria.configuration.AppConfig;
 import org.springframework.boot.CommandLineRunner;
@@ -18,7 +19,7 @@ public class Runner implements CommandLineRunner {
     public void run(String... args) throws Exception {
         //serve per accedere al contesto di Spring
         AnnotationConfigApplicationContext ctx =
-                new AnnotationConfigApplicationContext(AppConfig.class);
+                new AnnotationConfigApplicationContext(U5w1d1teoriaApplication.class);
         //abbiamo recuperato dal contesto di Spring un oggetto di tipo Drink
         Drink water = ctx.getBean(Drink.class);
 
@@ -31,5 +32,9 @@ public class Runner implements CommandLineRunner {
         Topping t2 = ctx.getBean("tomato",Topping.class);
 
         System.out.println(t2);
+
+        Pizza p = ctx.getBean(Pizza.class);
+
+        System.out.println(p);
     }
 }
