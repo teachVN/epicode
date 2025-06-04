@@ -5,6 +5,9 @@ import it.epicode.u5w1d2pratica.bean.Menu;
 import it.epicode.u5w1d2pratica.bean.Pizza;
 import it.epicode.u5w1d2pratica.bean.Tavolo;
 import org.junit.jupiter.api.*;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
+import org.junit.jupiter.params.provider.ValueSource;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
@@ -51,5 +54,25 @@ class U5w1d2praticaApplicationTests {
 	public static void chiudiContesto(){
 		ctx.close();
 	}
+
+	@ParameterizedTest
+	@ValueSource(strings = {"tomato", "mozzarella", "salame"})
+	public void verificaBeanEsistenti(String topping){
+
+		Menu menu = ctx.getBean(Menu.class);
+		boolean exist = menu.getProdotti().stream().anyMatch(prodotto -> prodotto.getNome().equalsIgnoreCase(topping));
+		Assertions.assertTrue(exist);
+	}
+
+	@ParameterizedTest
+	@CsvSource({"tomato,1", "mozzarella,1", "salame,0"})
+	public void verificaToppingMenu(String topping, int atteso){
+
+		Menu menu = ctx.getBean(Menu.class);
+		long count = menu.getProdotti().stream().filter(prodotto -> prodotto.getNome().equalsIgnoreCase(topping)).count();
+		Assertions.assertEquals(atteso, count);
+	}
+
+
 
 }
