@@ -11,7 +11,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.stereotype.Component;
 
-@Component
+//@Component
 public class Runner implements CommandLineRunner {
     /*
     ogni volta che vogliamo usare i repository dobbiamo iniettarli nella classe che li
@@ -66,5 +66,7 @@ public class Runner implements CommandLineRunner {
         studenteRepository.save(s1);
         studenteRepository.save(s2);
         studenteRepository.save(s3);
+
+        System.out.println(s1);
     }
 }
