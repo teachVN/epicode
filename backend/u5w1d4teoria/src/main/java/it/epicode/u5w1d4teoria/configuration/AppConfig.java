@@ -37,12 +37,12 @@ public class AppConfig {
         s1.setDataNascita(LocalDate.of(2002,2,2));
         return s1;
     }
-    @Bean
-    public Universita getUniversita(){
-        Universita universita = new Universita();
-        universita.setStudenti(List.of(getStudente1(), getStudente2(), getStudente3()));
-        return universita;
-    }
+//    @Bean
+//    public Universita getUniversita(){
+//        Universita universita = new Universita();
+//        universita.setStudenti(List.of(getStudente1(), getStudente2(), getStudente3()));
+//        return universita;
+//    }
 
 
 }
