@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 import java.time.LocalTime;
 import java.util.List;
 
-@Component//serve per permettere a Spring di gestire completamente la classe
+//@Component//serve per permettere a Spring di gestire completamente la classe
 //tutte le classi con Component vengono istanziate direttamente da Spring e gli
 //oggetti creati vengono salvati nel contesto
 @Order(1)//deve essere il primo runner ad essere lanciato
