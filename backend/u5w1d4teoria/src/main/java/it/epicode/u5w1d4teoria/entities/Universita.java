@@ -14,7 +14,7 @@ import java.util.List;
 @Entity
 @Data
 @NoArgsConstructor
-@Component
+//@Component
 public class Universita {
     @Id
     @GeneratedValue
@@ -22,7 +22,7 @@ public class Universita {
     private String nome="UNISA";
     private String citta="Salerno";
 
-    @Autowired
+    //@Autowired
     @OneToMany(mappedBy = "universita")
     private List<Studente> studenti;
 }

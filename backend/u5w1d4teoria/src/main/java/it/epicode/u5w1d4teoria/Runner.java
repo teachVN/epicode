@@ -21,7 +21,7 @@ public class Runner implements CommandLineRunner {
     public void run(String... args) throws Exception {
 
         AnnotationConfigApplicationContext ctx=
-                new AnnotationConfigApplicationContext(U5w1d4teoriaApplication.class);
+                new AnnotationConfigApplicationContext(AppConfig.class);
 
         Studente s1 = ctx.getBean("Mario", Studente.class);
         studenteRepository.save(s1);
@@ -36,5 +36,13 @@ public class Runner implements CommandLineRunner {
         universitaRepository.save(universita);
 
         System.out.println(universita);
+
+        s1.setUniversita(universita);
+        s2.setUniversita(universita);
+        s3.setUniversita(universita);
+
+        studenteRepository.save(s1);
+        studenteRepository.save(s2);
+        studenteRepository.save(s3);
     }
 }
