@@ -4,13 +4,14 @@ import it.epicode.u5w2d2teoria.exception.StudenteNotFoundException;
 import it.epicode.u5w2d2teoria.model.Studente;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
 @Service
 //è una annotazione che deriva da @Component e quindi è gestita automaticamente da Spring
 public class StudenteService {
-    private List<Studente> studenti;
+    private List<Studente> studenti = new ArrayList<>();
 
     //questo metodo andrà a creare un nuovo studente nella lista, in base ai dati dello studente
     //ricevuto dal client
