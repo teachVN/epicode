@@ -5,6 +5,7 @@ import it.epicode.u5w2d3teoria.exception.NotFoundException;
 import it.epicode.u5w2d3teoria.model.Studente;
 import it.epicode.u5w2d3teoria.service.StudenteService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,8 +25,10 @@ public class StudenteController {
     }
 
     @GetMapping("")
-    public List<Studente> getAllStudenti(){
-        return studenteService.getAllStudenti();
+    public Page<Studente> getAllStudenti(@RequestParam(defaultValue = "0") int page,
+                                         @RequestParam(defaultValue = "10") int size,
+                                         @RequestParam(defaultValue = "matricola") String sortBy){
+        return studenteService.getAllStudenti(page, size, sortBy);
     }
 
     @GetMapping("/{matricola}")
