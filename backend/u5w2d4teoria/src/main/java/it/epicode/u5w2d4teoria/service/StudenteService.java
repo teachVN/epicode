@@ -1,6 +1,7 @@
 package it.epicode.u5w2d4teoria.service;
 
 
+import com.cloudinary.Cloudinary;
 import it.epicode.u5w2d4teoria.dto.StudenteDto;
 import it.epicode.u5w2d4teoria.exception.NotFoundException;
 import it.epicode.u5w2d4teoria.model.Studente;
@@ -11,7 +12,13 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
+import java.util.Collections;
 
 @Service
 public class StudenteService {
@@ -21,6 +28,12 @@ public class StudenteService {
 
     @Autowired
     private UniversitaService universitaService;
+
+    @Autowired
+    private Cloudinary cloudinary;
+
+    @Autowired
+    private JavaMailSenderImpl javaMailSender;
 
     public Studente saveStudente(StudenteDto studenteDto) throws NotFoundException {
         //studenteDto contiene solo nome, cognome, dataNascita e universitaId
@@ -33,6 +46,9 @@ public class StudenteService {
         studente.setCognome(studenteDto.getCognome());
         studente.setDataNascita(studenteDto.getDataNascita());
         studente.setUniversita(universita);
+
+        //inserire la mail di destinazione
+        sendMail("");
 
         return studenteRepository.save(studente);
     }
@@ -76,5 +92,26 @@ public class StudenteService {
         Studente studenteDaCancellare = getStudente(matricola);
 
         studenteRepository.delete(studenteDaCancellare);
+    }
+
+    public String patchStudente(int matricola, MultipartFile file) throws NotFoundException, IOException {
+        Studente studenteDaPatchare = getStudente(matricola);
+        //salvo il file su cloudinary e ricevo l'url del file che si trova su cloudinary
+        String url= (String)cloudinary.uploader().upload(file.getBytes(), Collections.emptyMap()).get("url");
+
+        studenteDaPatchare.setUrlImmagine(url);
+
+        studenteRepository.save(studenteDaPatchare);
+
+        return url;
+    }
+
+    private void sendMail(String email) {
+        SimpleMailMessage message = new SimpleMailMessage();
+        message.setTo(email);
+        message.setSubject("Registrazione Servizio rest");
+        message.setText("Registrazione al servizio rest avvenuta con successo");
+
+        javaMailSender.send(message);
     }
 }

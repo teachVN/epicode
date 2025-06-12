@@ -12,6 +12,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
 
 @RestController
 @RequestMapping(path = "/studenti")
@@ -63,5 +66,10 @@ public class StudenteController {
     @DeleteMapping("/{matricola}")
     public void deleteStudente(@PathVariable int matricola) throws NotFoundException {
         studenteService.deleteStudente(matricola);
+    }
+
+    @PatchMapping("/{matricola}")
+    public String patchStudente(@PathVariable int matricola,@RequestBody MultipartFile file) throws NotFoundException, IOException {
+        return studenteService.patchStudente(matricola, file);
     }
 }

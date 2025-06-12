@@ -14,6 +14,7 @@ public class Studente {
     private String nome;
     private String cognome;
     private LocalDate dataNascita;
+    private String urlImmagine;
 
     @ManyToOne
     @JoinColumn(name = "universita_id")
