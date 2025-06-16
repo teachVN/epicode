@@ -29,4 +29,11 @@ public class JwtTool {
                 compact();
     }
 
+
+    //metodo per la verifica della validità del token
+    public void validateToken(String token){
+        Jwts.parser().verifyWith(Keys.hmacShaKeyFor(chiaveSegreta.getBytes())).
+                build().parse(token);
+    }
+
 }
