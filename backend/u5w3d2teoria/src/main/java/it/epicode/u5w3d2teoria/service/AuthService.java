@@ -6,6 +6,7 @@ import it.epicode.u5w3d2teoria.model.User;
 import it.epicode.u5w3d2teoria.repository.UserRepository;
 import it.epicode.u5w3d2teoria.security.JwtTool;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -17,6 +18,9 @@ public class AuthService {
     @Autowired
     private JwtTool jwtTool;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
     /*
         1. verificare che l'utente esiste
         2. se l'utente non esite, lancia una eccezione
@@ -27,7 +31,7 @@ public class AuthService {
         User user = userRepository.findByUsername(loginDto.getUsername()).
                 orElseThrow(() -> new NotFoundException("Utente con questo username/password non trovato"));
 
-        if(loginDto.getPassword().equals(user.getPassword())){
+        if(passwordEncoder.matches(loginDto.getPassword(), user.getPassword())){
             //utente è autenticato, devo creare il token
             return jwtTool.createToken(user);
         }

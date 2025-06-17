@@ -6,6 +6,7 @@ import it.epicode.u5w3d2teoria.exception.NotFoundException;
 import it.epicode.u5w3d2teoria.model.User;
 import it.epicode.u5w3d2teoria.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,12 +17,17 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
     public User saveUser(UserDto userDto){
         User user = new User();
         user.setNome(userDto.getNome());
         user.setCognome(userDto.getCognome());
         user.setUsername(userDto.getUsername());
-        user.setPassword(userDto.getPassword());
+        //la password in chiaro che si trova nel dto, verrà passata come parametro al metodo encode dell'encoder
+        //Bcrypt codificherà la password e genererà l'hash. Questo hash viene settato sullo user e salvato sul db
+        user.setPassword(passwordEncoder.encode(userDto.getPassword()));
         user.setRole(Role.USER);
 
         return userRepository.save(user);
@@ -43,7 +49,9 @@ public class UserService {
         userDaAggiornare.setNome(userDto.getNome());
         userDaAggiornare.setCognome(userDto.getCognome());
         userDaAggiornare.setUsername(userDto.getUsername());
-        userDaAggiornare.setPassword(userDto.getPassword());
+        if(!passwordEncoder.matches(userDto.getPassword(), userDaAggiornare.getPassword())) {
+            userDaAggiornare.setPassword(passwordEncoder.encode(userDto.getPassword()));
+        }
 
         return userRepository.save(userDaAggiornare);
     }

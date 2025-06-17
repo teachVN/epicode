@@ -48,7 +48,7 @@ public class StudenteService {
         studente.setUniversita(universita);
 
         //inserire la mail di destinazione
-        sendMail("");
+        //sendMail("");
 
         return studenteRepository.save(studente);
     }
