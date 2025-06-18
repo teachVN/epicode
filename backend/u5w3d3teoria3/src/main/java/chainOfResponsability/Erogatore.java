@@ -1,6 +1,6 @@
 package chainOfResponsability;
 
-public abstract class Erogatore {
+public class Erogatore {
 
     private int valoreBanconota;
     private Erogatore erogatoreSuccessivo;
