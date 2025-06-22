@@ -35,7 +35,8 @@ public class AuthController {
         return userService.saveUser(userDto);
     }
 
-    @GetMapping("/auth/login")
+    //ho trasformato il login in una post per non avere problemi con l'invio dei dati dalla pagina login.html
+    @PostMapping("/auth/login")
     public String login(@RequestBody LoginDto loginDto) throws NonTrovatoException {
         return authService.login(loginDto);
     }
